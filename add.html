@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Новое объявление — Объявления</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="header"><div class="container header__inner"><a class="logo" href="index.html">Объявления<span>.</span></a><nav class="nav"><a href="index.html" class="nav__link">Объявления</a><a href="add.html" class="nav__link nav__link--active">Разместить объявление</a></nav><div class="header__actions"><button class="link-button" data-modal="loginModal">Войти</button><button class="button button--dark button--small" data-modal="registerModal">Зарегистрироваться</button></div><button class="burger" aria-label="Открыть меню"><span></span><span></span><span></span></button></div></header>
+<main class="page"><div class="container narrow"><a class="back" href="index.html">← Вернуться к объявлениям</a><div class="form-page"><p class="eyebrow">Для зарегистрированных пользователей</p><h1>Новое объявление</h1><p class="lead">Заполните форму, чтобы разместить предложение на сайте.</p>
+<form class="form form--listing" id="listingForm">
+<label>Заголовок<input name="title" required maxlength="100" placeholder="Например, Продаю ноутбук"></label>
+<label>Фото<input name="photo" type="file" accept="image/*"></label>
+<label>Описание<textarea name="description" required rows="7" placeholder="Расскажите о товаре или услуге"></textarea></label>
+<label>Цена<input name="price" type="number" min="0" required placeholder="0"><span class="input-suffix">₽</span></label>
+<button class="button button--accent" type="submit">Разместить объявление</button>
+<p class="muted">В демонстрационной верстке отправка формы не выполняется на сервер.</p>
+</form></div></div></main>
+<footer class="footer"><div class="container footer__inner"><a class="logo logo--footer" href="index.html">Объявления<span>.</span></a><p>Удобная площадка для ваших объявлений.</p><span>© 2026</span></div></footer>
+<div class="modal" id="loginModal" aria-hidden="true"><div class="modal__backdrop" data-close></div><div class="modal__dialog"><button class="modal__close" data-close>×</button><div class="modal__head"><p class="eyebrow">Добро пожаловать</p><h2>Вход</h2></div><form class="form"><label>Email<input type="email" required placeholder="you@example.com"></label><label>Пароль<input type="password" required minlength="6" placeholder="Введите пароль"></label><button class="button button--dark button--full">Войти</button></form><p class="modal__switch">Нет аккаунта? <button class="text-button" data-switch="registerModal">Зарегистрироваться</button></p></div></div>
+<div class="modal" id="registerModal" aria-hidden="true"><div class="modal__backdrop" data-close></div><div class="modal__dialog modal__dialog--wide"><button class="modal__close" data-close>×</button><div class="modal__head"><p class="eyebrow">Новый пользователь</p><h2>Регистрация</h2></div><form class="form"><label>Имя<input required pattern="[А-Яа-яЁё\s-]+" placeholder="Иван Иванов"></label><label>E-mail<input type="email" required></label><label>Телефон<input type="tel" required></label><label>Пароль<input type="password" required minlength="6"></label><label>Повторите пароль<input type="password" required minlength="6"></label><label class="checkbox"><input type="checkbox" required><span>Я согласен(а) на обработку персональных данных</span></label><button class="button button--dark button--full">Зарегистрироваться</button></form></div></div>
+<script src="js/app.js"></script>
+</body>
+</html>
