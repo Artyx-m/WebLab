@@ -1,80 +1,215 @@
-const ads = [
-  {id:12,title:"Городской велосипед",price:"35 000 ₽",cat:"Спорт",type:"sport",img:"assets/product-1.svg"},
-  {id:11,title:"Ноутбук для работы",price:"72 000 ₽",cat:"Техника",type:"tech",img:"assets/product-2.svg"},
-  {id:10,title:"Диван в хорошем состоянии",price:"18 500 ₽",cat:"Дом",type:"home",img:"assets/product-3.svg"},
-  {id:9,title:"Автомобиль Kia Rio",price:"1 250 000 ₽",cat:"Авто",type:"auto",img:"assets/product-4.svg"},
-  {id:8,title:"Беспроводные наушники",price:"8 900 ₽",cat:"Техника",type:"tech",img:"assets/product-2.svg"},
-  {id:7,title:"Письменный стол",price:"12 000 ₽",cat:"Дом",type:"home",img:"assets/product-3.svg"},
-  {id:6,title:"Шоссейный велосипед",price:"54 000 ₽",cat:"Спорт",type:"sport",img:"assets/product-1.svg"},
-  {id:5,title:"Toyota Corolla",price:"1 680 000 ₽",cat:"Авто",type:"auto",img:"assets/product-4.svg"},
-  {id:4,title:"Монитор 27 дюймов",price:"21 000 ₽",cat:"Техника",type:"tech",img:"assets/product-2.svg"},
-  {id:3,title:"Кресло для дома",price:"9 500 ₽",cat:"Дом",type:"home",img:"assets/product-3.svg"},
-  {id:2,title:"Фитнес-трекер",price:"4 200 ₽",cat:"Спорт",type:"sport",img:"assets/product-1.svg"},
-  {id:1,title:"Комплект шин",price:"28 000 ₽",cat:"Авто",type:"auto",img:"assets/product-4.svg"}
+const products = [
+  ["Дракон. Рейвен","3 590 ₽",0],
+  ["Толстовка \"Распальцовка\"","4 900 ₽",1],
+  ["Механические часы Победа - ИЛ 2.","12 000 ₽",2],
+  ["iPhone 13 512GB","79 990 ₽",3],
+  ["ТВ Тумба Дуро","67 850 ₽",4],
+  ["Филадельфия манго","620 ₽",5],
+  ["Свеча «Рорсот»","790 ₽",6],
+  ["Ремешок для ключей Оранжко - рыжий...","1 590 ₽",7],
+  ["Футболка «Это пройдет»","1 500 ₽",8],
+  ["Таежная цветущая","700 ₽",9],
+  ["Чехол для AirPods в цвете Lavande...","3 590 ₽",10],
+  ["Футболка \"Тот, кому не нужно счастье\"...","1 400 ₽",11],
+  ["Утка на велосипед в шлеме","690 ₽",12],
+  ["Ремешок для AppleWatch из Novonappa...","7 990 ₽",13],
+  ["Менажница \"Микки\" из кедра...","690 ₽",14]
 ];
 
-let shown = 8;
+const demoUser = {
+  name: "Константин",
+  email: "konstantin@example.com",
+  phone: "+7 (999) 123-45-67",
+  password: "Konstantin123"
+};
 
-function renderAds(list=ads) {
-  const wrap=document.querySelector("#cards");
-  if(!wrap) return;
-  const visible=list.slice(0,shown);
-  wrap.innerHTML=visible.map(a=>`
-    <article class="card">
-      <a href="detail.html?id=${a.id}"><img class="card__image" src="${a.img}" alt="${a.title}"></a>
-      <div class="card__body">
-        <div class="card__meta">${a.cat}</div>
-        <a class="card__title" href="detail.html?id=${a.id}">${a.title}</a>
-        <div class="price">${a.price}</div>
-      </div>
-    </article>`).join("");
-  const count=document.querySelector("#resultsCount");
-  if(count) count.textContent=`Показано ${visible.length} из ${list.length}`;
-  const more=document.querySelector("#loadMore");
-  if(more) more.style.display=visible.length<list.length?"inline-flex":"none";
-}
-function filteredAds(){
-  const q=(document.querySelector("#searchInput")?.value||"").trim().toLowerCase();
-  const cat=document.querySelector("#categorySelect")?.value||"all";
-  return ads.filter(a=>(cat==="all"||a.type===cat)&&(!q||a.title.toLowerCase().includes(q)||a.cat.toLowerCase().includes(q)));
-}
-document.addEventListener("DOMContentLoaded",()=>{
-  renderAds();
-  document.querySelector("#loadMore")?.addEventListener("click",()=>{shown+=4;renderAds(filteredAds())});
-  document.querySelector("#searchButton")?.addEventListener("click",()=>{shown=8;renderAds(filteredAds())});
-  document.querySelector("#searchInput")?.addEventListener("keydown",e=>{if(e.key==="Enter"){shown=8;renderAds(filteredAds())}});
-  document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>openModal(b.dataset.modal)));
-  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",closeAll));
-  document.querySelectorAll("[data-switch]").forEach(b=>b.addEventListener("click",()=>{closeAll();openModal(b.dataset.switch)}));
-  document.addEventListener("keydown",e=>{if(e.key==="Escape")closeAll()});
+const demoAd = {
+  title: "Дракон. Рейвен",
+  description: "Подходит для паспорта и автодокументов. Натуральная кожа и высокопрочный пластик. Изделие изготовлено из кожи сорта краст.",
+  price: "3 590 ₽"
+};
 
-  const login=document.querySelector("#loginForm");
-  login?.addEventListener("submit",e=>{
-    e.preventDefault();
-    if(!login.checkValidity()){login.reportValidity();return}
-    console.log("Данные формы входа:",Object.fromEntries(new FormData(login)));
-    alert("Демонстрация верстки: данные формы выведены в консоль.");
-    closeAll();
+let shown = 10;
+
+function render() {
+  const root = document.getElementById('cards');
+  if (!root) return;
+  root.innerHTML = products.slice(0, shown).map((p, i) => `
+    <article class="ad-card" data-product="${i}" tabindex="0" role="button" aria-label="${p[0]}, ${p[1]}">
+      <img class="product-card-image" src="assets/generated_cards/card_${p[2]}.png" alt="${p[0]}">
+    </article>
+  `).join('');
+  const more = document.getElementById('loadMore');
+  if (more) more.style.display = shown < products.length ? 'block' : 'none';
+}
+function openModal(which) {
+  const id = which === 'login' ? 'loginModal' : which === 'register' ? 'registerModal' : which;
+  const el = document.getElementById(id);
+  if (!el) return;
+  closeModals();
+  el.classList.add('open');
+  el.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModals() {
+  document.querySelectorAll('.modal').forEach(m => {
+    m.classList.remove('open');
+    m.setAttribute('aria-hidden', 'true');
   });
-  const reg=document.querySelector("#registerForm");
-  reg?.addEventListener("submit",e=>{
+  document.body.style.overflow = '';
+}
+
+function fillLogin(form) {
+  if (!form) return;
+  form.email.value = demoUser.email;
+  form.password.value = demoUser.password;
+}
+
+function fillRegister(form) {
+  if (!form) return;
+  form.name.value = demoUser.name;
+  form.email.value = demoUser.email;
+  form.phone.value = demoUser.phone;
+  form.password.value = demoUser.password;
+  form.password2.value = demoUser.password;
+  form.agree.checked = true;
+}
+
+function fillAd(form) {
+  if (!form) return;
+  form.title.value = demoAd.title;
+  form.description.value = demoAd.description;
+  form.price.value = demoAd.price;
+  const preview = document.getElementById('adPreview');
+  if (preview) preview.classList.add('filled');
+}
+
+function updateHeader() {
+  const nav = document.getElementById('headerNav');
+  if (!nav) return;
+  if (localStorage.getItem('demoLogged_v4') === '1') {
+    nav.innerHTML = `
+      <span class="welcome">Добро пожаловать, Константин</span>
+      <button class="exit-btn" type="button" aria-label="Выход">Выход</button>
+    `;
+  } else {
+    nav.innerHTML = `
+      <a href="#" data-open="register">Регистрация</a>
+      <a href="#" data-open="login">Вход</a>
+    `;
+  }
+}
+
+function publishAd() {
+  const form = document.getElementById('adForm');
+  const error = document.getElementById('adError');
+  if (!form) return;
+  if (!form.title.value || !form.description.value || !form.price.value) {
+    error.textContent = 'Заполните объявление.';
+    fillAd(form);
+    return;
+  }
+  error.textContent = '';
+  closeModals();
+  openModal('successModal');
+}
+
+document.addEventListener('click', (e) => {
+  const open = e.target.closest('[data-open]');
+  if (open) {
     e.preventDefault();
-    const p=reg.querySelector('[name="password"]'), p2=reg.querySelector('[name="password2"]');
-    const err=document.querySelector("#registerError");
-    if(!reg.checkValidity()){reg.reportValidity();return}
-    if(p && p2 && p.value!==p2.value){err.textContent="Пароли не совпадают.";return}
-    if(p && /^\d+$/.test(p.value)){err.textContent="Пароль не может состоять только из цифр.";return}
-    if(err) err.textContent="";
-    console.log("Данные формы регистрации:",Object.fromEntries(new FormData(reg)));
-    alert("Демонстрация верстки: данные формы выведены в консоль.");
-    closeAll();
-  });
-  document.querySelector("#listingForm")?.addEventListener("submit",e=>{
+    openModal(open.dataset.open);
+    return;
+  }
+
+  const sw = e.target.closest('[data-switch]');
+  if (sw) {
     e.preventDefault();
-    if(!e.currentTarget.checkValidity()){e.currentTarget.reportValidity();return}
-    console.log("Данные объявления:",Object.fromEntries(new FormData(e.currentTarget)));
-    alert("Демонстрационная форма: объявление готово к отправке на сервер.");
-  });
+    openModal(sw.dataset.switch);
+    return;
+  }
+
+  if (e.target.matches('[data-close]') || e.target.classList.contains('modal')) {
+    closeModals();
+    return;
+  }
+
+  const card = e.target.closest('.ad-card');
+  if (card) {
+    // Детальная страница для демонстрации макета карточки.
+    window.location.href = 'detail.html';
+    return;
+  }
+
+  if (e.target.id === 'newAdBtn') {
+    if (localStorage.getItem('demoLogged_v4') !== '1') {
+      openModal('login');
+    } else {
+      openModal('adModal');
+    }
+    return;
+  }
+
+  if (e.target.closest('#adPreview')) {
+    fillAd(document.getElementById('adForm'));
+    return;
+  }
+
+  if (e.target.id === 'backToAds') {
+    closeModals();
+    return;
+  }
+
+  if (e.target.classList.contains('exit-btn')) {
+    localStorage.removeItem('demoLogged_v4');
+    updateHeader();
+    return;
+  }
 });
-function openModal(id){const m=document.getElementById(id);if(!m)return;m.classList.add("is-open");m.setAttribute("aria-hidden","false");document.body.style.overflow="hidden"}
-function closeAll(){document.querySelectorAll(".modal.is-open").forEach(m=>{m.classList.remove("is-open");m.setAttribute("aria-hidden","true")});document.body.style.overflow=""}
+
+document.addEventListener('focusin', (e) => {
+  const form = e.target.closest('form');
+  if (!form) return;
+  if (form.id === 'loginForm') fillLogin(form);
+  if (form.id === 'registerForm') fillRegister(form);
+  if (form.id === 'adForm') fillAd(form);
+});
+
+document.addEventListener('submit', (e) => {
+  if (e.target.id === 'loginForm') {
+    e.preventDefault();
+    fillLogin(e.target);
+    localStorage.setItem('demoLogged_v4', '1');
+    closeModals();
+    updateHeader();
+  }
+
+  if (e.target.id === 'registerForm') {
+    e.preventDefault();
+    fillRegister(e.target);
+    localStorage.setItem('demoLogged_v4', '1');
+    closeModals();
+    updateHeader();
+  }
+
+  if (e.target.id === 'adForm') {
+    e.preventDefault();
+    publishAd();
+  }
+});
+
+const more = document.getElementById('loadMore');
+if (more) {
+  more.addEventListener('click', () => {
+    shown = Math.min(shown + 5, products.length);
+    render();
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModals();
+});
+
+updateHeader();
+render();

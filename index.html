@@ -1,114 +1,119 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Объявления — Главная</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Объявления</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header class="header">
-  <div class="container header__inner">
-    <a class="logo" href="index.html">Объявления<span>.</span></a>
-    <nav class="nav">
-      <a href="index.html" class="nav__link nav__link--active">Объявления</a>
-      <a href="add.html" class="nav__link">Разместить объявление</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Объявления">
+      <span>Объявления</span>
+    </a>
+    <nav class="header-nav" id="headerNav">
+      <a href="#" data-open="register">Регистрация</a>
+      <a href="#" data-open="login">Вход</a>
     </nav>
-    <div class="header__actions">
-      <button class="link-button" data-modal="loginModal">Войти</button>
-      <button class="button button--dark button--small" data-modal="registerModal">Зарегистрироваться</button>
-    </div>
-    <button class="burger" aria-label="Открыть меню"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<main>
-  <section class="hero">
-    <div class="container">
-      <div class="hero__content">
-        <div>
-          <p class="eyebrow">Сайт объявлений</p>
-          <h1>Найдите нужное<br><span>рядом с вами</span></h1>
-          <p class="hero__text">Покупайте, продавайте и находите интересные предложения от пользователей.</p>
-        </div>
-        <div class="search">
-          <input type="search" id="searchInput" placeholder="Что вы ищете?">
-          <select id="categorySelect" aria-label="Категория">
-            <option value="all">Все категории</option>
-            <option value="tech">Техника</option>
-            <option value="home">Дом</option>
-            <option value="auto">Авто</option>
-            <option value="sport">Спорт</option>
-          </select>
-          <button class="button button--accent" id="searchButton">Найти</button>
-        </div>
-      </div>
-    </div>
+<main class="container">
+  <section class="top-row">
+    <h1>Объявления</h1>
+    <button class="pink-btn" type="button" id="newAdBtn">+ Новое объявление</button>
   </section>
 
-  <section class="list-section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Последние предложения</p>
-          <h2>Объявления</h2>
-        </div>
-        <span class="results-count" id="resultsCount"></span>
-      </div>
-      <div class="cards" id="cards"></div>
-      <div class="load-more-wrap">
-        <button class="button button--outline" id="loadMore">Показать еще</button>
-      </div>
-    </div>
-  </section>
+  <section class="cards" id="cards"></section>
+  <button class="load-more" id="loadMore" type="button">Показать еще</button>
 </main>
 
-<footer class="footer">
-  <div class="container footer__inner">
-    <a class="logo logo--footer" href="index.html">Объявления<span>.</span></a>
-    <p>Удобная площадка для ваших объявлений.</p>
-    <span>© 2026</span>
-  </div>
+<footer class="site-footer">
+  <a href="mailto:info@gmail.com">info@gmail.com</a>
+  <span>Информация о разработчике</span>
 </footer>
 
+<!-- Вход -->
 <div class="modal" id="loginModal" aria-hidden="true">
-  <div class="modal__backdrop" data-close></div>
-  <div class="modal__dialog">
-    <button class="modal__close" data-close aria-label="Закрыть">×</button>
-    <div class="modal__head">
-      <p class="eyebrow">Добро пожаловать</p>
-      <h2>Вход</h2>
-      <p>Войдите, чтобы размещать объявления и откликаться на них.</p>
-    </div>
-    <form id="loginForm" class="form">
-      <label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
-      <label>Пароль<input type="password" name="password" required minlength="6" autocomplete="current-password" placeholder="Введите пароль"></label>
-      <p class="form-error" id="loginError"></p>
-      <button class="button button--dark button--full" type="submit">Войти</button>
+  <div class="modal-card auth-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <button class="close" type="button" data-close aria-label="Закрыть">×</button>
+    <h2 id="loginTitle">Вход</h2>
+    <p class="modal-note">Нажмите на любое поле — данные входа заполнятся автоматически.</p>
+    <form id="loginForm" novalidate>
+      <label>Email
+        <input type="email" name="email" autocomplete="email" required>
+      </label>
+      <label>Пароль
+        <input type="password" name="password" autocomplete="current-password" required>
+      </label>
+      <div class="form-error" id="loginError"></div>
+      <button class="pink-btn full" type="submit">Войти</button>
     </form>
-    <p class="modal__switch">Нет аккаунта? <button class="text-button" data-switch="registerModal">Зарегистрироваться</button></p>
+    <p class="switch">Нет аккаунта? <a href="#" data-switch="register">Зарегистрироваться</a></p>
   </div>
 </div>
 
+<!-- Регистрация -->
 <div class="modal" id="registerModal" aria-hidden="true">
-  <div class="modal__backdrop" data-close></div>
-  <div class="modal__dialog modal__dialog--wide">
-    <button class="modal__close" data-close aria-label="Закрыть">×</button>
-    <div class="modal__head">
-      <p class="eyebrow">Новый пользователь</p>
-      <h2>Регистрация</h2>
-    </div>
-    <form id="registerForm" class="form">
-      <label>Имя<input type="text" name="name" required pattern="[А-Яа-яЁё\s-]+" placeholder="Иван Иванов"></label>
-      <label>E-mail<input type="email" name="email" required placeholder="you@example.com"></label>
-      <label>Телефон<input type="tel" name="phone" required pattern="(\+7|8)\s?\(?9\d{2}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}" placeholder="+7 900 000-00-00"></label>
-      <label>Пароль<input type="password" name="password" required minlength="6" id="regPassword" placeholder="Не менее 6 символов"></label>
-      <label>Повторите пароль<input type="password" name="password2" required minlength="6" id="regPassword2" placeholder="Повторите пароль"></label>
-      <label class="checkbox"><input type="checkbox" name="agree" required><span>Я согласен(а) на обработку персональных данных</span></label>
-      <p class="form-error" id="registerError"></p>
-      <button class="button button--dark button--full" type="submit">Зарегистрироваться</button>
+  <div class="modal-card auth-card" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
+    <button class="close" type="button" data-close aria-label="Закрыть">×</button>
+    <h2 id="registerTitle">Регистрация</h2>
+    <p class="modal-note">Нажмите на любое поле — все данные регистрации заполнятся автоматически.</p>
+    <form id="registerForm" novalidate>
+      <label>Имя
+        <input name="name" autocomplete="name" required>
+      </label>
+      <label>Email
+        <input type="email" name="email" autocomplete="email" required>
+      </label>
+      <label>Телефон
+        <input name="phone" autocomplete="tel" placeholder="+7 (999) 999-99-99" required>
+      </label>
+      <label>Пароль
+        <input type="password" name="password" autocomplete="new-password" required>
+      </label>
+      <label>Повторите пароль
+        <input type="password" name="password2" autocomplete="new-password" required>
+      </label>
+      <label class="check">
+        <input type="checkbox" name="agree" required>
+        <span>Я согласен на обработку персональных данных</span>
+      </label>
+      <div class="form-error" id="registerError"></div>
+      <button class="pink-btn full" type="submit">Зарегистрироваться</button>
     </form>
-    <p class="modal__switch">Уже есть аккаунт? <button class="text-button" data-switch="loginModal">Войти</button></p>
+    <p class="switch">Уже есть аккаунт? <a href="#" data-switch="login">Войти</a></p>
+  </div>
+</div>
+
+<!-- Новое объявление: точное расположение по исходнику варианта 5 -->
+<div class="modal" id="adModal" aria-hidden="true">
+  <div class="ad-source-card" role="dialog" aria-modal="true" aria-labelledby="adTitle">
+    <button class="source-close" type="button" data-close aria-label="Закрыть">×</button>
+    <h2 id="adTitle" class="source-ad-title">Новое объявление</h2>
+    <form id="adForm" novalidate>
+      <div class="source-ad-layout">
+        <div class="source-upload" id="adPreview" aria-label="Загрузить изображение"></div>
+        <div class="source-ad-fields">
+          <input class="source-title-input" name="title" aria-label="Название" placeholder="Название" required>
+          <input class="source-price-input" name="price" aria-label="Цена" placeholder="Цена" required>
+          <textarea class="source-description-input" name="description" aria-label="Описание" placeholder="Описание" required></textarea>
+        </div>
+      </div>
+      <button class="source-publish-btn" type="submit" aria-label="Опубликовать объявление"></button>
+      <img class="source-required" src="assets/source/2/Frame 4.png" alt="Все поля обязательны для заполнения">
+      <div class="form-error source-ad-error" id="adError"></div>
+    </form>
+  </div>
+</div>
+
+<!-- Успешная публикация -->
+<div class="modal" id="successModal" aria-hidden="true">
+  <div class="success-card" role="dialog" aria-modal="true">
+    <img src="assets/source/1/Done.png" alt="Ваше объявление опубликовано" class="done-image">
+    <h2>Ваше объявление опубликовано</h2>
+    <button class="pink-btn full" type="button" id="backToAds">Вернуться к объявлениям</button>
   </div>
 </div>
 

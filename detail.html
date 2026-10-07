@@ -1,52 +1,11 @@
 <!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Детальная страница — Объявления</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Дракон. Рейвен — Объявления</title><link rel="stylesheet" href="css/style.css"></head>
 <body>
-<header class="header">
-  <div class="container header__inner">
-    <a class="logo" href="index.html">Объявления<span>.</span></a>
-    <nav class="nav"><a href="index.html" class="nav__link nav__link--active">Объявления</a><a href="add.html" class="nav__link">Разместить объявление</a></nav>
-    <div class="header__actions"><button class="link-button" data-modal="loginModal">Войти</button><button class="button button--dark button--small" data-modal="registerModal">Зарегистрироваться</button></div>
-    <button class="burger" aria-label="Открыть меню"><span></span><span></span><span></span></button>
-  </div>
-</header>
-<main class="page">
-  <div class="container">
-    <a class="back" href="index.html">← Назад к объявлениям</a>
-    <div class="detail">
-      <div class="detail__media">
-        <img src="assets/product-1.svg" alt="Велосипед">
-      </div>
-      <article class="detail__body">
-        <p class="eyebrow">Спорт · 05 октября 2026</p>
-        <h1>Городской велосипед</h1>
-        <div class="price price--large">35 000 ₽</div>
-        <p class="detail__description">Легкий городской велосипед в отличном состоянии. Подойдет для прогулок по городу и поездок на работу. Размер рамы M, колеса 28". В комплекте крылья и замок.</p>
-        <div class="detail__author">
-          <div class="avatar">АК</div>
-          <div><strong>Алексей К.</strong><span>Автор объявления</span></div>
-        </div>
-        <div class="detail__actions">
-          <button class="button button--accent" data-modal="loginModal">Откликнуться на объявление</button>
-          <p class="muted">Телефон автора доступен зарегистрированным пользователям.</p>
-        </div>
-      </article>
-    </div>
-  </div>
-</main>
-<footer class="footer"><div class="container footer__inner"><a class="logo logo--footer" href="index.html">Объявления<span>.</span></a><p>Удобная площадка для ваших объявлений.</p><span>© 2026</span></div></footer>
-<div class="modal" id="loginModal" aria-hidden="true">
-  <div class="modal__backdrop" data-close></div><div class="modal__dialog"><button class="modal__close" data-close>×</button>
-  <div class="modal__head"><p class="eyebrow">Добро пожаловать</p><h2>Вход</h2></div>
-  <form id="loginForm" class="form"><label>Email<input type="email" required placeholder="you@example.com"></label><label>Пароль<input type="password" required minlength="6" placeholder="Введите пароль"></label><button class="button button--dark button--full">Войти</button></form>
-  <p class="modal__switch">Нет аккаунта? <button class="text-button" data-switch="registerModal">Зарегистрироваться</button></p></div>
-</div>
-<div class="modal" id="registerModal" aria-hidden="true"><div class="modal__backdrop" data-close></div><div class="modal__dialog modal__dialog--wide"><button class="modal__close" data-close>×</button><div class="modal__head"><p class="eyebrow">Новый пользователь</p><h2>Регистрация</h2></div><form id="registerForm" class="form"><label>Имя<input required pattern="[А-Яа-яЁё\s-]+" placeholder="Иван Иванов"></label><label>E-mail<input type="email" required placeholder="you@example.com"></label><label>Телефон<input type="tel" required placeholder="+7 900 000-00-00"></label><label>Пароль<input type="password" required minlength="6"></label><label>Повторите пароль<input type="password" required minlength="6"></label><label class="checkbox"><input type="checkbox" required><span>Я согласен(а) на обработку персональных данных</span></label><button class="button button--dark button--full">Зарегистрироваться</button></form></div></div>
-<script src="js/app.js"></script>
-</body>
-</html>
+<header class="site-header"><div class="header-inner"><a class="brand" href="index.html"><span>Объявления</span></a><nav class="header-nav" id="headerNav"></nav></div></header>
+<main class="container"><a href="index.html" class="back-link">← Назад</a><article class="detail-card"><div class="detail-image"></div><div class="detail-info"><h1>Дракон. Рейвен</h1><div class="price">3 590 ₽</div><p>Подходит для паспорта и автодокументов. Натуральная кожа и высокопрочный пластик. Изделие изготовлено из кожи сорта краст.</p><p class="muted">Автор: Константин</p><button class="pink-btn" id="respondBtn" type="button">Откликнуться на объявление</button></div></article></main>
+<footer class="site-footer"><a href="mailto:info@gmail.com">info@gmail.com</a><span>Информация о разработчике</span></footer>
+<script>
+const nav=document.getElementById('headerNav');function update(){if(localStorage.getItem('demoLogged')==='1'){nav.innerHTML='<span class="welcome">Добро пожаловать, Константин</span><button class="exit-btn" type="button">Выход</button>'}else{nav.innerHTML='<a href="index.html" data-open="register">Регистрация</a><a href="index.html" data-open="login">Вход</a>'}}update();document.getElementById('respondBtn').addEventListener('click',()=>{if(localStorage.getItem('demoLogged')!=='1'){location.href='index.html';return}document.getElementById('respondBtn').textContent='Отклик отправлен'});
+</script>
+<style>.back-link{display:inline-block;color:#555;text-decoration:none;margin-bottom:25px}.detail-card{display:grid;grid-template-columns:520px 1fr;gap:60px}.detail-image{width:100%;aspect-ratio:1;background:#f4f4f4 url('assets/source/1/Card.png') no-repeat 0 0;background-size:500% auto;border-radius:14px}.detail-info{padding-top:15px}.detail-info h1{font-size:40px;margin:0 0 20px}.price{font-size:34px;font-weight:700;margin-bottom:25px}.detail-info p{max-width:650px;line-height:1.6}.muted{color:#888}@media(max-width:900px){.detail-card{grid-template-columns:1fr}.detail-image{max-width:520px}.detail-info h1{font-size:30px}}</style>
+</body></html>

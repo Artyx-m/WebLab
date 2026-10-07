@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 720">
-<rect width="900" height="720" fill="#e5e9e6"/>
-<circle cx="690" cy="140" r="170" fill="#8aa996" opacity=".35"/>
-<circle cx="180" cy="610" r="220" fill="#8aa996" opacity=".22"/>
-<rect x="105" y="105" width="690" height="510" rx="35" fill="#b8d3c0"/>
-<text x="450" y="375" text-anchor="middle" font-family="Arial" font-size="62" font-weight="700" fill="#171717">Авто</text>
-<text x="450" y="435" text-anchor="middle" font-family="Arial" font-size="25" fill="#171717" opacity=".65">Объявления · вариант 5</text>
-</svg>
