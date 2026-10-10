@@ -1,122 +1,94 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Объявления</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Объявления — ЛГТУ">
+  <title>Объявления — ЛГТУ</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="index.html" aria-label="Объявления">
-      <span>Объявления</span>
-    </a>
-    <nav class="header-nav" id="headerNav">
-      <a href="#" data-open="register">Регистрация</a>
-      <a href="#" data-open="login">Вход</a>
-    </nav>
-  </div>
-</header>
+  <main class="page-shell">
+    <header class="site-header" aria-label="Главное меню">
+      <picture class="header-art">
+        <source media="(max-width: 599px)" srcset="assets/header-mobile.svg">
+        <source media="(max-width: 1024px)" srcset="assets/header-tablet.svg">
+        <img src="assets/header-desktop.svg" alt="Объявления. Регистрация. Вход.">
+      </picture>
+      <div class="header-user-state" id="headerUserState" hidden><span id="headerGreeting">Здравствуйте, Константин</span><button type="button" id="logoutButton">Выход</button></div>
+      <button class="header-hotspot register-hotspot" data-open-modal="register" aria-label="Регистрация"></button>
+      <button class="header-hotspot login-hotspot" data-open-modal="login" aria-label="Вход"></button>
+    </header>
 
-<main class="container">
-  <section class="top-row">
-    <h1>Объявления</h1>
-    <button class="pink-btn" type="button" id="newAdBtn">+ Новое объявление</button>
-  </section>
-
-  <section class="cards" id="cards"></section>
-  <button class="load-more" id="loadMore" type="button">Показать еще</button>
-</main>
-
-<footer class="site-footer">
-  <a href="mailto:info@gmail.com">info@gmail.com</a>
-  <span>Информация о разработчике</span>
-</footer>
-
-<!-- Вход -->
-<div class="modal" id="loginModal" aria-hidden="true">
-  <div class="modal-card auth-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-    <button class="close" type="button" data-close aria-label="Закрыть">×</button>
-    <h2 id="loginTitle">Вход</h2>
-    <p class="modal-note">Нажмите на любое поле — данные входа заполнятся автоматически.</p>
-    <form id="loginForm" novalidate>
-      <label>Email
-        <input type="email" name="email" autocomplete="email" required>
-      </label>
-      <label>Пароль
-        <input type="password" name="password" autocomplete="current-password" required>
-      </label>
-      <div class="form-error" id="loginError"></div>
-      <button class="pink-btn full" type="submit">Войти</button>
-    </form>
-    <p class="switch">Нет аккаунта? <a href="#" data-switch="register">Зарегистрироваться</a></p>
-  </div>
-</div>
-
-<!-- Регистрация -->
-<div class="modal" id="registerModal" aria-hidden="true">
-  <div class="modal-card auth-card" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
-    <button class="close" type="button" data-close aria-label="Закрыть">×</button>
-    <h2 id="registerTitle">Регистрация</h2>
-    <p class="modal-note">Нажмите на любое поле — все данные регистрации заполнятся автоматически.</p>
-    <form id="registerForm" novalidate>
-      <label>Имя
-        <input name="name" autocomplete="name" required>
-      </label>
-      <label>Email
-        <input type="email" name="email" autocomplete="email" required>
-      </label>
-      <label>Телефон
-        <input name="phone" autocomplete="tel" placeholder="+7 (999) 999-99-99" required>
-      </label>
-      <label>Пароль
-        <input type="password" name="password" autocomplete="new-password" required>
-      </label>
-      <label>Повторите пароль
-        <input type="password" name="password2" autocomplete="new-password" required>
-      </label>
-      <label class="check">
-        <input type="checkbox" name="agree" required>
-        <span>Я согласен на обработку персональных данных</span>
-      </label>
-      <div class="form-error" id="registerError"></div>
-      <button class="pink-btn full" type="submit">Зарегистрироваться</button>
-    </form>
-    <p class="switch">Уже есть аккаунт? <a href="#" data-switch="login">Войти</a></p>
-  </div>
-</div>
-
-<!-- Новое объявление: точное расположение по исходнику варианта 5 -->
-<div class="modal" id="adModal" aria-hidden="true">
-  <div class="ad-source-card" role="dialog" aria-modal="true" aria-labelledby="adTitle">
-    <button class="source-close" type="button" data-close aria-label="Закрыть">×</button>
-    <h2 id="adTitle" class="source-ad-title">Новое объявление</h2>
-    <form id="adForm" novalidate>
-      <div class="source-ad-layout">
-        <div class="source-upload" id="adPreview" aria-label="Загрузить изображение"></div>
-        <div class="source-ad-fields">
-          <input class="source-title-input" name="title" aria-label="Название" placeholder="Название" required>
-          <input class="source-price-input" name="price" aria-label="Цена" placeholder="Цена" required>
-          <textarea class="source-description-input" name="description" aria-label="Описание" placeholder="Описание" required></textarea>
-        </div>
+    <section class="listings-section" aria-label="Новые объявления">
+      <div class="section-heading">
+        <picture class="title-art">
+          <source media="(max-width: 599px)" srcset="assets/title-mobile.svg">
+          <source media="(max-width: 1024px)" srcset="assets/title-tablet.svg">
+          <img src="assets/title-desktop.svg" alt="Новые объявления">
+        </picture>
+        <a class="add-link" href="add.html" aria-label="Добавить объявление">
+          <picture>
+            <source media="(max-width: 599px)" srcset="assets/button-add-mobile.svg">
+            <source media="(max-width: 1024px)" srcset="assets/button-add-tablet.svg">
+            <img src="assets/button-add-desktop.svg" alt="Добавить объявление">
+          </picture>
+        </a>
       </div>
-      <button class="source-publish-btn" type="submit" aria-label="Опубликовать объявление"></button>
-      <img class="source-required" src="assets/source/2/Frame 4.png" alt="Все поля обязательны для заполнения">
-      <div class="form-error source-ad-error" id="adError"></div>
-    </form>
-  </div>
-</div>
 
-<!-- Успешная публикация -->
-<div class="modal" id="successModal" aria-hidden="true">
-  <div class="success-card" role="dialog" aria-modal="true">
-    <img src="assets/source/1/Done.png" alt="Ваше объявление опубликовано" class="done-image">
-    <h2>Ваше объявление опубликовано</h2>
-    <button class="pink-btn full" type="button" id="backToAds">Вернуться к объявлениям</button>
-  </div>
-</div>
+      <div class="cards-grid" id="cardsGrid" aria-label="Объявления"></div>
+      <div class="more-button-wrap">
+        <button class="more-button" id="loadMore" type="button" aria-label="Показать ещё">
+          <picture>
+            <source media="(max-width: 599px)" srcset="assets/button-more-mobile.svg">
+            <source media="(max-width: 1024px)" srcset="assets/button-more-tablet.svg">
+            <img src="assets/button-more-desktop.svg" alt="Показать ещё">
+          </picture>
+        </button>
+      </div>
+      <p class="load-status" id="loadStatus" aria-live="polite"></p>
+    </section>
 
-<script src="js/app.js"></script>
+    <footer class="site-footer">
+      <picture>
+        <source media="(max-width: 599px)" srcset="assets/footer-mobile.svg">
+        <source media="(max-width: 1024px)" srcset="assets/footer-tablet.svg">
+        <img src="assets/footer-desktop.svg" alt="">
+      </picture>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="closeModal" aria-label="Закрыть">×</button>
+      <div class="modal-tabs" role="tablist" aria-label="Учётная запись">
+        <button class="modal-tab active" data-tab="register" role="tab">Регистрация</button>
+        <button class="modal-tab" data-tab="login" role="tab">Авторизация</button>
+      </div>
+      <h2 id="modalTitle" class="visually-hidden">Регистрация</h2>
+      <form id="registerForm" class="account-form">
+        <input name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя" required pattern="[А-Яа-яЁё\s-]+">
+        <div class="form-row">
+          <input name="email" type="email" autocomplete="email" placeholder="Email" aria-label="Email" required>
+          <input name="phone" type="tel" autocomplete="tel" placeholder="Мобильный телефон" aria-label="Мобильный телефон" required pattern="[+0-9()\s-]{10,20}">
+        </div>
+        <div class="form-row">
+          <input name="password" type="password" autocomplete="new-password" placeholder="Пароль" aria-label="Пароль" minlength="6" required>
+          <input name="confirmPassword" type="password" autocomplete="new-password" placeholder="Повторите пароль" aria-label="Повторите пароль" minlength="6" required>
+        </div>
+        <label class="consent"><input type="checkbox" name="consent" required><span>Согласен на обработку <a href="#personal-data">персональных данных</a></span></label>
+        <p class="form-note">Все поля обязательны для заполнения</p>
+        <button class="submit-button" type="submit">Зарегистрироваться</button>
+      </form>
+      <form id="loginForm" class="account-form" hidden>
+        <input name="email" type="email" autocomplete="email" placeholder="Email" aria-label="Email" required>
+        <input name="password" type="password" autocomplete="current-password" placeholder="Пароль" aria-label="Пароль" required>
+        <p class="form-note">Все поля обязательны для заполнения</p>
+        <button class="submit-button" type="submit">Войти</button>
+      </form>
+      <p class="form-status" id="formStatus" aria-live="polite"></p>
+    </section>
+  </div>
+  <script src="app.js"></script>
 </body>
 </html>
