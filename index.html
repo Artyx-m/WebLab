@@ -10,29 +10,29 @@
 <body>
   <main class="page-shell">
     <header class="site-header" aria-label="Главное меню">
-      <picture class="header-art">
-        <source media="(max-width: 599px)" srcset="assets/header-mobile.svg">
-        <source media="(max-width: 1024px)" srcset="assets/header-tablet.svg">
-        <img src="assets/header-desktop.svg" alt="Объявления. Регистрация. Вход.">
-      </picture>
-      <div class="header-user-state" id="headerUserState" hidden><span id="headerGreeting">Здравствуйте, Константин</span><button type="button" id="logoutButton">Выход</button></div>
-      <button class="header-hotspot register-hotspot" data-open-modal="register" aria-label="Регистрация"></button>
-      <button class="header-hotspot login-hotspot" data-open-modal="login" aria-label="Вход"></button>
+      <div class="header-top">
+        <div class="header-brand">
+          <img src="assets/logo-icon.svg" alt="Иконка" class="brand-icon">
+          <img src="assets/logo-text.svg" alt="Объявления" class="brand-text">
+        </div>
+        <div class="header-auth-actions" id="headerAuthActions">
+          <button class="auth-btn" data-open-modal="register">Регистрация</button>
+          <button class="auth-btn" data-open-modal="login">Вход</button>
+        </div>
+        <div class="header-user-state" id="headerUserState" hidden>
+          <span id="headerGreeting">Константин</span>
+          <button type="button" id="logoutButton">Выход</button>
+        </div>
+      </div>
+      <img src="assets/divider.svg" alt="" class="header-divider-img">
     </header>
 
     <section class="listings-section" aria-label="Новые объявления">
       <div class="section-heading">
-        <picture class="title-art">
-          <source media="(max-width: 599px)" srcset="assets/title-mobile.svg">
-          <source media="(max-width: 1024px)" srcset="assets/title-tablet.svg">
-          <img src="assets/title-desktop.svg" alt="Новые объявления">
-        </picture>
+        <h1 class="page-title">Новые объявления</h1>
         <a class="add-link" href="add.html" aria-label="Добавить объявление">
-          <picture>
-            <source media="(max-width: 599px)" srcset="assets/button-add-mobile.svg">
-            <source media="(max-width: 1024px)" srcset="assets/button-add-tablet.svg">
-            <img src="assets/button-add-desktop.svg" alt="Добавить объявление">
-          </picture>
+          <span class="add-link-text">+ Добавить объявление</span>
+          <span class="add-link-icon">+</span>
         </a>
       </div>
 
@@ -66,6 +66,7 @@
         <button class="modal-tab" data-tab="login" role="tab">Авторизация</button>
       </div>
       <h2 id="modalTitle" class="visually-hidden">Регистрация</h2>
+      
       <form id="registerForm" class="account-form">
         <input name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя" required pattern="[А-Яа-яЁё\s-]+">
         <div class="form-row">
@@ -80,9 +81,12 @@
         <p class="form-note">Все поля обязательны для заполнения</p>
         <button class="submit-button" type="submit">Зарегистрироваться</button>
       </form>
+      
       <form id="loginForm" class="account-form" hidden>
-        <input name="email" type="email" autocomplete="email" placeholder="Email" aria-label="Email" required>
-        <input name="password" type="password" autocomplete="current-password" placeholder="Пароль" aria-label="Пароль" required>
+        <div class="form-row">
+          <input name="email" type="email" autocomplete="email" placeholder="Email" aria-label="Email" required>
+          <input name="password" type="password" autocomplete="current-password" placeholder="Пароль" aria-label="Пароль" required>
+        </div>
         <p class="form-note">Все поля обязательны для заполнения</p>
         <button class="submit-button" type="submit">Войти</button>
       </form>
