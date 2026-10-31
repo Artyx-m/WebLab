@@ -12,7 +12,8 @@
     <header class="site-header" aria-label="Главное меню">
       <div class="header-top">
         <div class="header-brand">
-          <img src="assets/logo-icon.svg" alt="Иконка" class="brand-icon">
+          <img src="assets/logo-icon.svg" alt="" class="brand-icon">
+          <span class="brand-separator" aria-hidden="true"></span>
           <img src="assets/logo-text.svg" alt="Объявления" class="brand-text">
         </div>
         <div class="header-auth-actions" id="headerAuthActions">
@@ -31,8 +32,8 @@
       <div class="section-heading">
         <h1 class="page-title">Новые объявления</h1>
         <a class="add-link" href="add.html" aria-label="Добавить объявление">
-          <span class="add-link-text">+ Добавить объявление</span>
-          <span class="add-link-icon">+</span>
+          <img class="add-link-plus" src="assets/plus-icon.svg" alt="" aria-hidden="true">
+          <span class="add-link-text">Добавить объявление</span>
         </a>
       </div>
 
@@ -67,7 +68,7 @@
       </div>
       <h2 id="modalTitle" class="visually-hidden">Регистрация</h2>
       
-      <form id="registerForm" class="account-form">
+      <form id="registerForm" class="account-form" novalidate>
         <input name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя" required pattern="[А-Яа-яЁё\s-]+">
         <div class="form-row">
           <input name="email" type="email" autocomplete="email" placeholder="Email" aria-label="Email" required>
@@ -78,16 +79,16 @@
           <input name="confirmPassword" type="password" autocomplete="new-password" placeholder="Повторите пароль" aria-label="Повторите пароль" minlength="6" required>
         </div>
         <label class="consent"><input type="checkbox" name="consent" required><span>Согласен на обработку <a href="#personal-data">персональных данных</a></span></label>
-        <p class="form-note">Все поля обязательны для заполнения</p>
+        <p class="form-note"><img src="assets/warning-icon.svg" alt="">Все поля обязательны для заполнения</p>
         <button class="submit-button" type="submit">Зарегистрироваться</button>
       </form>
       
-      <form id="loginForm" class="account-form" hidden>
+      <form id="loginForm" class="account-form" hidden novalidate>
         <div class="form-row">
           <input name="email" type="email" autocomplete="email" placeholder="Email" aria-label="Email" required>
           <input name="password" type="password" autocomplete="current-password" placeholder="Пароль" aria-label="Пароль" required>
         </div>
-        <p class="form-note">Все поля обязательны для заполнения</p>
+        <p class="form-note"><img src="assets/warning-icon.svg" alt="">Все поля обязательны для заполнения</p>
         <button class="submit-button" type="submit">Войти</button>
       </form>
       <p class="form-status" id="formStatus" aria-live="polite"></p>

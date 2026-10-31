@@ -135,12 +135,16 @@ tabs.forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
 document.getElementById('closeModal')?.addEventListener('click',closeModal);
 backdrop?.addEventListener('click',e=>{if(e.target===backdrop)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+function validPhone(value){const digits=String(value||'').replace(/\D/g,'');return digits.length>=10&&digits.length<=15&&/^\+?[0-9()\s-]+$/.test(String(value||''));}
+function validateAccountForm(form){let ok=true;form.querySelectorAll('input:not([type=checkbox])').forEach(input=>{let valid=input.value.trim()!=='';if(input.type==='email')valid=valid&&/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.value.trim());if(input.name==='phone')valid=valid&&validPhone(input.value);if(input.name==='password')valid=valid&&input.value.length>=6;if(input.name==='name')valid=valid&&/^[А-Яа-яЁё\s-]+$/.test(input.value.trim());input.classList.toggle('field-error',!valid);if(!valid)ok=false;});
+ if(form===registerForm){const pass=form.elements.namedItem('password'),confirm=form.elements.namedItem('confirmPassword'),consent=form.elements.namedItem('consent');if(pass&&confirm&&pass.value!==confirm.value){confirm.classList.add('field-error');ok=false;}if(consent&&!consent.checked){consent.classList.add('field-error');ok=false;}}
+ return ok;}
+document.querySelectorAll('.account-form input').forEach(input=>input.addEventListener('input',()=>{const form=input.closest('.account-form');let valid=input.value.trim()!=='';if(input.type==='email')valid=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.value.trim());if(input.name==='phone')valid=validPhone(input.value);if(input.name==='password')valid=input.value.length>=6;if(input.name==='confirmPassword')valid=input.value===form.elements.namedItem('password')?.value;input.classList.toggle('field-error',!valid);if(input.name==='password'&&form===registerForm){const confirm=form.elements.namedItem('confirmPassword');if(confirm?.value)confirm.classList.toggle('field-error',confirm.value!==input.value);}}));
 registerForm?.addEventListener('submit',e=>{
   e.preventDefault();
+  if(!validateAccountForm(registerForm))return;
   const d=new FormData(registerForm), pass=String(d.get('password')||'');
-  if(pass!==String(d.get('confirmPassword')||'')){formStatus.textContent='Пароли не совпадают.';return;}
-  if(pass.length<6||/^\d+$/.test(pass)){formStatus.textContent='Пароль должен содержать не менее 6 символов и не состоять только из цифр.';return;}
-  if(!d.get('consent')){formStatus.textContent='Необходимо согласие на обработку персональных данных.';return;}
+  if(/^\d+$/.test(pass)){formStatus.textContent='';registerForm.querySelector('[name=password]')?.classList.add('field-error');return;}
   const user={name:d.get('name')||'Константин',email:d.get('email'),phone:d.get('phone')};
   sessionStorage.setItem('lgtuDemoUser_v3',JSON.stringify(user));
   renderHeader();
@@ -152,8 +156,8 @@ registerForm?.addEventListener('submit',e=>{
 });
 loginForm?.addEventListener('submit',e=>{
   e.preventDefault();
+  if(!validateAccountForm(loginForm))return;
   const d=new FormData(loginForm), email=String(d.get('email')||'');
-  if(!email||!d.get('password')){formStatus.textContent='Заполните все поля.';return;}
   const old=getUser();
   const name=old?.name||(email.toLowerCase()==='demo@lgtu.ru'?'Константин':(email.split('@')[0]||'Константин'));
   sessionStorage.setItem('lgtuDemoUser_v3',JSON.stringify({name,email,phone:old?.phone||'+7 900 123-45-67'}));
