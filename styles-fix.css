@@ -1,0 +1,16 @@
+/* Исправление линии под верхней панелью и толщины рамок формы */
+.header-divider-img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  min-height: 1px;
+  margin: 0;
+  object-fit: fill;
+  filter: brightness(0.85);
+}
+
+/* Поля в окнах регистрации и входа */
+.modal-panel .account-form input:not([type="checkbox"]) {
+  border-width: 2px;
+}
