@@ -1,0 +1,7 @@
+[db]
+host = "localhost"
+login = ""
+password = ""
+name = "events"
+port = 3306
+charset = "utf8mb4"

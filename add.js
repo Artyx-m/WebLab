@@ -1,4 +1,4 @@
-try { if (!sessionStorage.getItem('lgtuDemoUser_v3')) { location.replace('index.html?modal=login&next=add'); } } catch { location.replace('index.html?modal=login&next=add'); }
+try { if (!sessionStorage.getItem('lgtuDemoUser_v3')) { location.replace('index.php?modal=login&next=add'); } } catch { location.replace('index.php?modal=login&next=add'); }
 const addForm=document.getElementById('addForm');
 const photoInput=document.getElementById('photo');
 const photoPreview=document.getElementById('photoPreview');
@@ -12,7 +12,7 @@ function updatePublishState(){if(publishButton)publishButton.disabled=!(titleInp
 function showDefaultListing(){
  if(!titleInput?.value.trim())titleInput.value='Дракон. Рейвен';
  if(!priceInput?.value)priceInput.value='3590';
- if(!descriptionInput?.value.trim())descriptionInput.value='Подходит для паспорта и автодокументов. Натуральная кожа и высокопрочный пластик.\n\nИзделие изготовлено из кожи сорта краст. Это кожа как она есть. Без покрытия и обработки, с естественным рисунком (мерея) или без него. Текстура чаще всего ярко выражена. Краст проходит барабанное крашение со специальным режимом, называемом сквозным прокрасом. Можно не бояться, что окрашенная лицевая сторона отслоится или потрескается. Поверхность может иметь мелкие дефекты небольшие отклонения в цвете по полотну кожи, точки, складки, шрамы.\n\nРучная работа. Точная копия невозможна!\n\nЦвет изделия в реальности может отличаться от цвета на фото. Это связано с обработкой фото и особенностями отображения цветов на разных экранах.\n\nБарельеф: Дракон\nЦвет кожи: Черный\nФормат: Обложка для документов';
+ if(!descriptionInput?.value.trim())descriptionInput.value='Подходит для паспорта и автодокументов. Натуральная кожа и высокопрочный пластик.';
  chosenImage='assets/product-final-01.jpg';
  photoPreview.src=chosenImage;
  photoField?.classList.add('has-photo');
@@ -29,5 +29,5 @@ addForm?.addEventListener('submit',e=>{
  ads.unshift({id:Date.now(),title:String(d.get('title')||''),price:String(d.get('price')||''),description:String(d.get('description')||''),image:chosenImage});
  localStorage.setItem(key,JSON.stringify(ads));
  
- location.href='index.html?published=1';
+ location.href='index.php?published=1';
 });

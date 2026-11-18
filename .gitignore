@@ -1,0 +1,13 @@
+# Реальный конфиг с доступами — не коммитим
+config/parametrs.ini
+
+# IDE и ОС
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Временные файлы
+*.log
+*.sql
+*.zip
