@@ -1,5 +1,9 @@
-# Реальный конфиг с доступами — не коммитим
+# Реальный конфиг с доступами
 config/parametrs.ini
+
+# Временные файлы и кэш
+php-cs-fixer.phar
+.php-cs-fixer.cache
 
 # IDE и ОС
 .idea/
