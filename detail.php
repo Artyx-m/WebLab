@@ -2,13 +2,12 @@
 require __DIR__ . "/db.php";
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-$stmt = $pdo->prepare("SELECT id, name, path, description FROM material WHERE id = :id");
+$stmt = $pdo->prepare("SELECT id, name, path, description, price FROM material WHERE id = :id");
 $stmt->execute(['id' => $id]);
 $item = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Страховка от ошибки 404
 if (!$item) {
-    $item = $pdo->query("SELECT id, name, path, description FROM material LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+    $item = $pdo->query("SELECT id, name, path, description, price FROM material LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 }
 ?>
 <!doctype html>
@@ -45,6 +44,7 @@ if (!$item) {
         <img class="detail-image" src="<?= htmlspecialchars($item['path']) ?>" alt="<?= htmlspecialchars($item['name']) ?>">
         <div>
           <h1 class="subpage-title"><?= htmlspecialchars($item['name']) ?></h1>
+          <p class="detail-price" style="font-size: 28px; font-weight: bold; margin-bottom: 20px;"><?= htmlspecialchars($item['price']) ?></p>
           <p class="detail-description"><?= nl2br(htmlspecialchars($item['description'] ?? '')) ?></p>
           <p id="authorPhone"></p>
           <button class="submit-button" id="respond">Откликнуться на объявление</button>

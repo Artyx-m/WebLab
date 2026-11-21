@@ -9,6 +9,21 @@ function renderHeader(){
   if(actions){ actions.style.display = user ? 'none' : 'flex'; }
 }
 renderHeader();
+
+// УВЕДОМЛЕНИЕ О ПУБЛИКАЦИИ
+if(new URLSearchParams(location.search).get('published')==='1'){
+  const toast=document.createElement('div');
+  toast.className='publish-success-toast';
+  toast.setAttribute('role','status');
+  toast.setAttribute('aria-live','polite');
+  toast.innerHTML='<div class="publish-success-toast-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M10 25l9 9L38 14" fill="none" stroke="white" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="publish-success-toast-text">Ваше объявление опубликовано</div>';
+  document.body.appendChild(toast);
+  history.replaceState(null,'',location.pathname+location.hash);
+  
+  // 1500 миллисекунд = 1,5 секунды
+  setTimeout(()=>{toast.classList.add('is-hiding');setTimeout(()=>toast.remove(),120);},1500);
+}
+
 document.getElementById('logoutButton')?.addEventListener('click',()=>{sessionStorage.removeItem('lgtuDemoUser_v3');renderHeader();});
 
 // Кнопка "Показать ещё"
@@ -126,7 +141,6 @@ loginForm?.addEventListener('submit',e=>{
   const d=new FormData(loginForm), email=String(d.get('email')||'');
   const old=getUser();
   
-  // Оригинальная логика имени
   const name=old?.name||(email.toLowerCase()==='demo@lgtu.ru'?'Константин':(email.split('@')[0]||'Константин'));
   
   sessionStorage.setItem('lgtuDemoUser_v3',JSON.stringify({name,email,phone:old?.phone||'+7 900 123-45-67'}));

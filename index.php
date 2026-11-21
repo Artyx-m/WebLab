@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . "/db.php";
 
-$sql = "SELECT id, name, path, description FROM material ORDER BY id ASC LIMIT 10";
+$sql = "SELECT id, name, path, description, price FROM material ORDER BY id ASC LIMIT 10";
 $result = $pdo->prepare($sql);
 $result->execute();
 $subjects = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -49,7 +49,8 @@ $subjects = $result->fetchAll(PDO::FETCH_ASSOC);
         <?php foreach ($subjects as $subject): ?>
           <a class="ad-card" href="detail.php?id=<?= (int)$subject['id'] ?>">
             <img class="ad-card-image" src="<?= htmlspecialchars($subject['path']) ?>" alt="<?= htmlspecialchars($subject['name']) ?>" loading="lazy">
-            <strong class="ad-card-price"><?= htmlspecialchars($subject['name']) ?></strong>
+            <strong class="ad-card-price"><?= htmlspecialchars($subject['price']) ?></strong>
+            <span class="ad-card-title"><?= htmlspecialchars($subject['name']) ?></span>
           </a>
         <?php endforeach; ?>
       </div>
